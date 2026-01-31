@@ -247,6 +247,10 @@ export default function Planner() {
                     Night {b.night}
                   </Text>
 
+                  <Text style={{ marginBottom: 6, fontWeight: "600" }}>
+                    Hotel: {hotel.name}
+                  </Text>
+
                   <Picker
                     selectedValue={b.hotelId}
                     onValueChange={(v) => updateHotel(i, v)}
