@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  Switch,
-} from "react-native";
+import { Text, View, ScrollView, TextInput, Switch } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
 
@@ -47,9 +41,7 @@ export default function Planner() {
 
     for (let i = 1; i <= totalNights; i++) {
       const available = hotels.filter((h) => h.id !== lastHotel);
-      const cheapest = available.reduce((a, b) =>
-        b.price < a.price ? b : a
-      );
+      const cheapest = available.reduce((a, b) => (b.price < a.price ? b : a));
 
       plan.push({ night: i, hotelId: cheapest.id, coupon: false });
       lastHotel = cheapest.id;
@@ -62,9 +54,7 @@ export default function Planner() {
   function verifyCoupon() {
     if (couponInput === COUPON_CODE) {
       setCouponValid(true);
-      setCouponMessage(
-        "Coupon verified. You can apply it to up to 3 nights."
-      );
+      setCouponMessage("Coupon verified. You can apply it to up to 3 nights.");
     } else {
       setCouponValid(false);
       setCouponMessage("Invalid coupon code.");
@@ -74,7 +64,7 @@ export default function Planner() {
 
   function updateHotel(i, id) {
     const updated = booking.map((b, idx) =>
-      idx === i ? { ...b, hotelId: Number(id) } : b
+      idx === i ? { ...b, hotelId: Number(id) } : b,
     );
     setBooking(updated);
     recalc(updated);
@@ -90,7 +80,7 @@ export default function Planner() {
     }
 
     const updated = booking.map((b, idx) =>
-      idx === i ? { ...b, coupon: !b.coupon } : b
+      idx === i ? { ...b, coupon: !b.coupon } : b,
     );
 
     setBooking(updated);
@@ -243,14 +233,22 @@ export default function Planner() {
                     marginTop: 8,
                   }}
                 >
-                  <Text style={{ fontWeight: "bold" }}>
-                    Night {b.night}
+                  <Text style={{ fontWeight: "bold" }}>Night {b.night}</Text>
+
+                  <Text style={{ marginVertical: 6, fontSize: 15 }}>
+                    Hotel:{" "}
+                    <Text style={{ fontWeight: "600" }}>{hotel.name}</Text>
                   </Text>
 
-                  <Text style={{ marginBottom: 6, fontWeight: "600" }}>
-                    Hotel: {hotel.name}
-                  </Text>
-
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      borderColor: "#ccc",
+                      borderRadius: 6,
+                      overflow: "hidden",
+                      marginBottom: 6,
+                    }}
+                  ></View>
                   <Picker
                     selectedValue={b.hotelId}
                     onValueChange={(v) => updateHotel(i, v)}
@@ -261,7 +259,9 @@ export default function Planner() {
                   </Picker>
 
                   {couponValid && (
-                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
                       <Text>Apply Coupon</Text>
                       <Switch
                         value={b.coupon}
